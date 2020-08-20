@@ -36,7 +36,7 @@ module.exports = function(state, emit) {
           <h1 class="text-center text-3xl font-bold my-2">
             ${state.translate('reportedTitle')}
           </h1>
-          <p class="max-w-md text-center text-grey-80 leading-normal">
+          <p class="max-w-md text-center leading-normal">
             ${state.translate('reportedDescription')}
           </p>
           <img src="${assets.get('notFound.svg')}" class="my-12" />
@@ -81,7 +81,7 @@ module.exports = function(state, emit) {
                             name="reason"
                             id="${reportable.toLowerCase()}"
                             value="${reportable.toLowerCase()}"
-                            class="mr-2 my-2 w-4 h-4"
+                            class="mr-2 my-2 w-4 h-4 flex-none"
                           />
                           ${state.translate(`reportReason${reportable}`)}
                         </label>

@@ -85,9 +85,17 @@ module.exports = function(state, emit) {
   let content = '';
   if (!state.fileInfo) {
     state.fileInfo = createFileInfo(state);
-    if (!state.fileInfo.nonce) {
+    if (downloadMetadata.status === 404) {
       return notFound(state);
     }
+    if (!state.fileInfo.nonce) {
+      // coming from something like the browser back button
+      return location.reload();
+    }
+  }
+
+  if (state.fileInfo.dead) {
+    return notFound(state);
   }
 
   if (!state.transfer && !state.fileInfo.requiresPassword) {
@@ -113,7 +121,7 @@ module.exports = function(state, emit) {
     <main class="main">
       ${state.modal && modal(state, emit)}
       <section
-        class="relative h-full w-full p-6 md:p-8 md:rounded-xl md:shadow-big md:flex md:flex-col"
+        class="relative overflow-hidden h-full w-full p-6 md:p-8 md:rounded-xl md:shadow-big md:flex md:flex-col"
       >
         ${content}
       </section>

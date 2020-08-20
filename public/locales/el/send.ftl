@@ -1,6 +1,5 @@
 # Firefox Send is a brand name and should not be localized.
 title = Firefox Send
-siteFeedback = Σχόλια
 importingFile = Εισαγωγή…
 encryptingFile = Κρυπτογράφηση…
 decryptingFile = Αποκρυπτογράφηση…
@@ -140,7 +139,7 @@ accountBenefitSync = Διαχειριστείτε τα διαμοιρασμέν�
 accountBenefitMoz = Μάθετε για τις άλλες υπηρεσίες της { -mozilla }
 signOut = Αποσύνδεση
 okButton = OK
-downloadingTitle = Λήψη
+downloadingTitle = Γίνεται λήψη
 noStreamsWarning = Αυτό το πρόγραμμα περιήγησης ενδέχεται να μην μπορέσει να αποκρυπτογραφήσει αρχεία αυτού του μεγέθους.
 noStreamsOptionCopy = Αντιγράψτε το σύνδεσμο για άνοιγμα σε άλλο πρόγραμμα περιήγησης
 noStreamsOptionFirefox = Δοκιμάστε το αγαπημένο μας πρόγραμμα περιήγησης
@@ -153,3 +152,16 @@ shareLinkButton = Κοινή χρήση συνδέσμου
 shareMessage = Λήψη του “{ $name }” με το { -send-brand }: απλός και ασφαλής διαμοιρασμός αρχείων
 trailheadPromo = Υπάρχει τρόπος να προστατέψετε το απόρρητό σας. Γίνετε μέλος του Firefox.
 learnMore = Μάθετε περισσότερα.
+downloadConfirmTitle = Κάτι ακόμα
+# This string has a special case for '1' and [other] (default). If necessary for
+# your language, you can add {$count} to your translations and use the
+# standard CLDR forms, or only use the form for [other] if both strings should
+# be identical.
+downloadTrustCheckbox =
+    { $count ->
+        [one] Εμπιστεύομαι το άτομο που έστειλε το αρχείο
+       *[other] Εμπιστεύομαι το άτομο που έστειλε τα αρχεία
+    }
+reportDescription = Βοηθήστε μας να καταλάβουμε τι συμβαίνει. Τι νομίζετε ότι δεν πάει καλά με αυτά τα αρχεία;
+reportButton = Αναφορά
+reportedDescription = Σας ευχαριστούμε. Λάβαμε την αναφορά σας για τα αρχεία.

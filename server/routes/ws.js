@@ -66,6 +66,7 @@ module.exports = function(ws, req) {
 
       const meta = {
         owner,
+        fxa: user ? 1 : 0,
         metadata,
         dlimit,
         auth: auth.split(' ')[1],
@@ -111,6 +112,8 @@ module.exports = function(ws, req) {
         statUploadEvent({
           id: newId,
           ip: req.ip,
+          country: req.geo.country,
+          state: req.geo.state,
           owner,
           dlimit,
           timeLimit,

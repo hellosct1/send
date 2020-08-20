@@ -61,9 +61,9 @@ module.exports = function(app) {
       csp.directives.connectSrc.push(config.sentry_host);
     }
     if (
-      config.base_url.test(/^https:\/\/.*\.dev\.lcip\.org$/) ||
-      config.base_url.test(
-        /^https:\/\/.*\.send\.nonprod\.cloudops\.mozgcp\.net$/
+      /^https:\/\/.*\.dev\.lcip\.org$/.test(config.base_url) ||
+      /^https:\/\/.*\.send\.nonprod\.cloudops\.mozgcp\.net$/.test(
+        config.base_url
       )
     ) {
       csp.directives.connectSrc.push('https://*.dev.lcip.org');
@@ -93,6 +93,19 @@ module.exports = function(app) {
     );
     next();
   });
+  app.use(function(req, res, next) {
+    try {
+      // set by the load balancer
+      const [country, state] = req.header('X-Client-Geo-Location').split(',');
+      req.geo = {
+        country,
+        state
+      };
+    } catch (e) {
+      req.geo = {};
+    }
+    next();
+  });
   app.use(bodyParser.json());
   app.use(bodyParser.text());
   app.get('/', language, pages.index);
@@ -107,11 +120,17 @@ module.exports = function(app) {
   app.get('/app.webmanifest', language, require('./webmanifest'));
   app.get(`/download/:id${ID_REGEX}`, language, pages.download);
   app.get('/unsupported/:reason', language, pages.unsupported);
-  app.get(`/api/download/:id${ID_REGEX}`, auth.hmac, require('./download'));
+  app.get(`/api/download/token/:id${ID_REGEX}`, auth.hmac, require('./token'));
+  app.get(`/api/download/:id${ID_REGEX}`, auth.dlToken, require('./download'));
   app.get(
     `/api/download/blob/:id${ID_REGEX}`,
-    auth.hmac,
+    auth.dlToken,
     require('./download')
+  );
+  app.post(
+    `/api/download/done/:id${ID_REGEX}`,
+    auth.dlToken,
+    require('./done.js')
   );
   app.get(`/api/exists/:id${ID_REGEX}`, require('./exists'));
   app.get(`/api/metadata/:id${ID_REGEX}`, auth.hmac, require('./metadata'));
@@ -120,12 +139,7 @@ module.exports = function(app) {
   // app.post('/api/upload', auth.fxa, require('./upload'));
   app.post(`/api/delete/:id${ID_REGEX}`, auth.owner, require('./delete'));
   app.post(`/api/password/:id${ID_REGEX}`, auth.owner, require('./password'));
-  app.post(
-    `/api/params/:id${ID_REGEX}`,
-    auth.owner,
-    auth.fxa,
-    require('./params')
-  );
+  app.post(`/api/params/:id${ID_REGEX}`, auth.owner, require('./params'));
   app.post(`/api/info/:id${ID_REGEX}`, auth.owner, require('./info'));
   app.post(`/api/report/:id${ID_REGEX}`, auth.hmac, require('./report'));
   app.post('/api/metrics', require('./metrics'));

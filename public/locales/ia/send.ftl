@@ -115,6 +115,7 @@ legalDateStamp = Version 1.0 del 12 martio 2019
 # A short representation of a countdown timer containing the number of days, hours, and minutes remaining as digits, example "2d 11h 56m"
 expiresDaysHoursMinutes = { $days }d { $hours }h { $minutes }m
 addFilesButton = Selige le files a incargar
+trustWarningMessage = Verifica que tu te fide a tu destinatario quando tu comparti datos sensibile.
 uploadButton = Incargar
 # the first part of the string 'Drag and drop files or click to send up to 1GB'
 dragAndDropFiles = Traher e deponer files
@@ -152,5 +153,33 @@ shareLinkButton = Condivide ligamine
 shareMessage = Discarga “{ $name }” con { -send-brand }: condivide files in modo simple e secur
 trailheadPromo = Il ha un via pro proteger tu confidentialitate. Junge te a Firefox!
 learnMore = Saper plus.
+downloadFlagged = Iste ligamine ha essite disactivate per violation del terminos de servicio.
 downloadConfirmTitle = Un altere cosa
+downloadConfirmDescription = Verifica que tu te fide al persona qui te inviava iste file, perque nos non pote verificar que illo non violara tu apparato.
+# This string has a special case for '1' and [other] (default). If necessary for
+# your language, you can add {$count} to your translations and use the
+# standard CLDR forms, or only use the form for [other] if both strings should
+# be identical.
+downloadTrustCheckbox =
+    { $count ->
+        [one] Io me fide al persona qui inviava iste file
+       *[other] Io me fide al persona qui inviava iste files
+    }
+# This string has a special case for '1' and [other] (default). If necessary for
+# your language, you can add {$count} to your translations and use the
+# standard CLDR forms, or only use the form for [other] if both strings should
+# be identical.
+reportFile =
+    { $count ->
+        [one] reportar iste file como suspecte
+       *[other] reportar iste files como suspecte
+    }
+reportDescription = Adjuta nos a comprender lo que eveni. Que pensa tu es problematic con iste files?
+reportUnknownDescription = Va al URL del ligamine que tu desira signalar e clicca “{ reportFile }”.
 reportButton = Reportar
+reportReasonMalware = Iste files contine malware o es parte de un attacco fraudulente.
+reportReasonPii = Iste files contine informationes personal identificabile re me.
+reportReasonAbuse = Iste files contine contento illegal o abusive.
+reportReasonCopyright = Pro signalar violation de derectos de autor o marca de fabrica, usa le procedura describite a <a>iste pagina</a>.
+reportedTitle = Files reportate
+reportedDescription = Gratias. Nos ha recipite tu reporto sur iste files.

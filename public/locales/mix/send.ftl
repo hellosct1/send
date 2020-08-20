@@ -1,6 +1,5 @@
 # Firefox Send is a brand name and should not be localized.
 title = Firefox Send
-siteFeedback = Tu'un meu
 importingFile = Ndakiin…
 encryptingFile = Ndasami tu'un…
 decryptingFile = Nchiko tu'un…
@@ -116,6 +115,7 @@ legalDateStamp = Versión 1.0 del 12 de marzo de 2019
 # A short representation of a countdown timer containing the number of days, hours, and minutes remaining as digits, example "2d 11h 56m"
 expiresDaysHoursMinutes = { $days }d { $hours }h { $minutes }m
 addFilesButton = Katsi tutu ku skau
+trustWarningMessage = Kunche'e a va'a nu ku ntachuún ña.
 uploadButton = Skaa
 # the first part of the string 'Drag and drop files or click to send up to 1GB'
 dragAndDropFiles = Xita cha sia kue tutu
@@ -153,3 +153,29 @@ shareLinkButton = Stucha Enlace
 shareMessage = Snuu «{ $name }» tsi { -send-brand }: kue nchichi
 trailheadPromo = Ku china vau ña chau. Kita'an tsi Firefox.
 learnMore = Skua'a kuakaa.
+downloadFlagged = Va'á enlace yo.
+downloadConfirmTitle = Una cosa más
+# This string has a special case for '1' and [other] (default). If necessary for
+# your language, you can add {$count} to your translations and use the
+# standard CLDR forms, or only use the form for [other] if both strings should
+# be identical.
+downloadTrustCheckbox =
+    { $count ->
+        [one] Va'a nivi ntachu'un tutu yo
+       *[other] Va'a nivi ntachu'un tutu yo
+    }
+# This string has a special case for '1' and [other] (default). If necessary for
+# your language, you can add {$count} to your translations and use the
+# standard CLDR forms, or only use the form for [other] if both strings should
+# be identical.
+reportFile =
+    { $count ->
+        [one] Katu'un ña va'á tutu yo
+       *[other] Katu'un ña va'á kue tutu yo
+    }
+reportUnknownDescription = Sa'a ña mani kuncheu,  url ña enlace ña va'á cha katavi “{ reportFile }”.
+reportButton = Ka tu'un
+reportReasonPii = Inka kue tu'un me nu kue tutu yo.
+reportReasonAbuse = Yee ña va'á nu kue tutu yo.
+reportedTitle = Ku ncheé tutu
+reportedDescription = Ti tsavu. tsa kumikue tu'un tsa'a tutuku.

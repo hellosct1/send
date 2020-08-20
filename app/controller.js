@@ -232,9 +232,10 @@ export default function(state, emitter) {
     } catch (e) {
       if (e.message === '401' || e.message === '404') {
         file.password = null;
-        if (!file.requiresPassword) {
-          return emitter.emit('pushState', '/404');
-        }
+        file.dead = e.message === '404';
+      } else {
+        console.error(e);
+        return emitter.emit('pushState', '/error');
       }
     }
 
@@ -250,7 +251,8 @@ export default function(state, emitter) {
     const start = Date.now();
     try {
       const dl = state.transfer.download({
-        stream: state.capabilities.streamDownload
+        stream: state.capabilities.streamDownload,
+        storage: state.storage
       });
       render();
       await dl;
@@ -269,7 +271,9 @@ export default function(state, emitter) {
       } else {
         // eslint-disable-next-line no-console
         state.transfer = null;
-        const location = err.message === '404' ? '/404' : '/error';
+        const location = ['404', '403'].includes(err.message)
+          ? '/404'
+          : '/error';
         if (location === '/error') {
           state.sentry.withScope(scope => {
             scope.setExtra('duration', err.duration);
@@ -314,7 +318,8 @@ export default function(state, emitter) {
 
   emitter.on('report', async ({ reason }) => {
     try {
-      await state.transfer.reportLink(reason);
+      const receiver = state.transfer || new FileReceiver(state.fileInfo);
+      await receiver.reportLink(reason);
       render();
     } catch (err) {
       console.error(err);
